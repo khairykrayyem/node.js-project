@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <title>Departments</title>
+    <script>
+        async function fetchDepartments() {
+            const response = await fetch('http://localhost:4000/graphql', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify({
+                    query: `
+                        query {
+                            alldepatment {
+                                id
+                                name
+                                manager
+                            }
+                        }
+                    `
+                })
+            });
+            const result = await response.json();
+            displayDepartments(result.data.alldepatment);
+        }
+
+        function displayDepartments(departments) {
+            const departmentsContainer = document.getElementById('departments');
+            departmentsContainer.innerHTML = '';
+            departments.forEach(department => {
+                const departmentElement = document.createElement('div');
+                departmentElement.innerText = `ID: ${department.id}, Name: ${department.name}, Manager: ${department.manager}`;
+                departmentsContainer.appendChild(departmentElement);
+            });
+        }
+
+        window.onload = fetchDepartments;
+    </script>
+</head>
+<body>
+    <h1>Departments</h1>
+    <div id="departments"></div>
+</body>
+</html>

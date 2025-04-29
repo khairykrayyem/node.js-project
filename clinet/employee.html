@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Employee Page</title>
+</head>
+
+<body>
+    <h1>Employee List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Department ID</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTable"></tbody>
+    </table>
+
+            <script>
+                async function fetchEmployees() {
+                    const query = `
+                        query {
+                            allemployee {
+                                id
+                                firstName
+                                lastName
+                                departmentID
+                            }
+                        }
+                    `;
+
+                    const response = await fetch("http://localhost:4000/graphql", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ query })
+                    });
+                    
+                    const { data } = await response.json();
+                    data.allemployee.forEach(employee => {
+                        document.getElementById("employeeTable").innerHTML += `
+                            <tr>
+                                <td>${employee.id}</td>
+                                <td>${employee.firstName}</td>
+                                <td>${employee.lastName}</td>
+                                <td>${employee.departmentID}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                fetchEmployees();
+            </script>
+
+</body>
+
+</html>
