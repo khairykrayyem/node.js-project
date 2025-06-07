@@ -1,60 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="he">
 <head>
-
-    <title>Employee Page</title>
+  <meta charset="UTF-8">
+  <title>עובדים</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body data-page="employees">
+  <nav>
+    <a href="dashboard.html">בית</a>
+    <a href="users.html">משתמשים</a>
+    <a href="departments.html">מחלקות</a>
+    <a href="employees.html">עובדים</a>
+    <a href="shifts.html">משמרות</a>
+  </nav>
 
-<body>
-    <h1>Employee List</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Department ID</th>
-            </tr>
-        </thead>
-        <tbody id="employeeTable"></tbody>
-    </table>
-
-            <script>
-                async function fetchEmployees() {
-                    const query = `
-                        query {
-                            allemployee {
-                                id
-                                firstName
-                                lastName
-                                departmentID
-                            }
-                        }
-                    `;
-
-                    const response = await fetch("http://localhost:4000/graphql", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ query })
-                    });
-                    
-                    const { data } = await response.json();
-                    data.allemployee.forEach(employee => {
-                        document.getElementById("employeeTable").innerHTML += `
-                            <tr>
-                                <td>${employee.id}</td>
-                                <td>${employee.firstName}</td>
-                                <td>${employee.lastName}</td>
-                                <td>${employee.departmentID}</td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                fetchEmployees();
-            </script>
+  <div class="container">
+    <h1>עובדים</h1>
+    <ul class="list">
+      <li>עובד 1</li>
+      <li>עובד 2</li>
+      <li>עובד 3</li>
+    </ul>
+    <div id="employeesList"></div>
+  </div>
+    <script src="scripts.js"></script>
 
 </body>
-
 </html>

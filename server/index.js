@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
-const authController = require('./models/authController');
+//const authController = require('./models/authController');
 const connectDB = require('./configs/testDB');
 require('./models/userModel')
 
@@ -119,7 +119,7 @@ app.use(
   })
 );
 
-app.post('/auth/login', authController.loginUser);
+//app.post('/auth/login', authController.loginUser);
 
 app.listen(PORT, () => {
   console.log(`App is listening at http://localhost:${PORT}`);
